@@ -1,0 +1,21 @@
+{
+  "name": "buzzdeee-apmd",
+  "version": "0.1.0",
+  "author": "Sebastian Reitenbach",
+  "summary": "A puppet module to manage OpenBSD apmd",
+  "license": "Apache-2.0",
+  "source": "https://github.com/buzzdeee/buzzdeee-apmd.git",
+  "project_page": "https://github.com/buzzdeee/buzzdeee-apmd",
+  "issues_url": "https://github.com/buzzdeee/buzzdeee-apmd/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5.6"
+      ]
+    }
+  ],
+  "dependencies": [],
+  "tags": [ "OpenBSD" ]
+}
+
