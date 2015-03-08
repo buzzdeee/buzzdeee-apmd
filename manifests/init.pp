@@ -40,9 +40,11 @@ class apmd (
   $service_ensure = $apmd::params::service_ensure,
   $service_flags  = $apmd::params::service_flags,
 ) inherits apmd::params {
-  class { 'apmd::service':
-    service_enable => $service_enable,
-    service_ensure => $service_ensure,
-    service_flags  => $service_flags,
+  if $::apm_arch {
+    class { 'apmd::service':
+      service_enable => $service_enable,
+      service_ensure => $service_ensure,
+      service_flags  => $service_flags,
+    }
   }
 }
