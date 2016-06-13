@@ -10,7 +10,16 @@ class apmd::params {
         $service_flags = undef
       }
       default: {
-        if $::manufacturer =~ /Soekris/ {
+        # This is some backward compatibility
+        # $::manufacturer not available anymore
+        # with facter3, but the structured dmi
+        # fact is
+        if $::manufacturer {
+          $manufacturer = $::manufacturer
+        } else {
+          $manufacturer = $::dmi[bios][vendor]
+        }
+        if $manufacturer =~ /Soekris/ {
           $service_ensure = 'stopped'
           $service_enable = false
           $service_flags = undef
