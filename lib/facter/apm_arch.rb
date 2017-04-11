@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Fact: apm_arch
 #
 # Purpose: tells if the node has APM or not
@@ -12,10 +14,10 @@
 # Notes:
 #   None
 Facter.add(:apm_arch) do
-  confine :operatingsystem => 'OpenBSD'
+  confine operatingsystem: 'OpenBSD'
   has_weight 100
   setcode do
-    if File.exists?('/dev/apm') and File.exists?('/dev/apmctl')
+    if File.exist?('/dev/apm') && File.exist?('/dev/apmctl')
       true
     end
   end
