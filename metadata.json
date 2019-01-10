@@ -1,6 +1,6 @@
 {
   "name": "buzzdeee-apmd",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Sebastian Reitenbach",
   "summary": "A puppet module to manage OpenBSD apmd",
   "license": "Apache-2.0",

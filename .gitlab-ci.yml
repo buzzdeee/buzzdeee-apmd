@@ -50,7 +50,8 @@ publish:
   tags:
     - puppet
   script:
-    - rake$RUBYSUFFIX module:release
+    - rake$RUBYSUFFIX module:clean
+    - rake$RUBYSUFFIX module:push
   stage: deploy
   only:
     - tags
