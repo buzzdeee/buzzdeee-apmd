@@ -3,14 +3,18 @@ stages:
   - deploy
 
 variables:
-  RUBYSUFFIX: '23'
+  RUBYSUFFIX: '25'
 
 puppet-lint:
+  tags:
+    - puppet
   script:
     - "puppet-lint${RUBYSUFFIX} --relative --fail-on-warnings --with-filename --with-context manifests"
   stage: test
 
 template-test:
+  tags:
+    - puppet
   script:
     - "if [ -d templates ];then"
     - "erb$RUBYSUFFIX -x -T '-' templates/*erb | ruby${RUBYSUFFIX} -c"
@@ -18,6 +22,8 @@ template-test:
   stage: test
 
 rubocop-test:
+  tags:
+    - puppet
   script:
     - 'echo "inspecting following files with rubocop:"'
     - "rubocop$RUBYSUFFIX -L"
@@ -25,14 +31,26 @@ rubocop-test:
   stage: test
 
 rake-test:
+  tags:
+    - puppet
   script:
     - "rake$RUBYSUFFIX spec SPEC_OPTS='--format documentation'"
   stage: test
 
 deploy:
+  tags:
+    - puppet
   script:
-    - "sudo /usr/local/bin/r10k${RUBYSUFFIX} deploy module newsyslog -v"
+    - "/usr/local/bin/deploy.sh module apmd"
   stage: deploy
   only:
     - master
 
+publish:
+  tags:
+    - puppet
+  script:
+    - rake$RUBYSUFFIX module:release
+  stage: deploy
+  only:
+    - tags
