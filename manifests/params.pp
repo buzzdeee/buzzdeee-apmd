@@ -26,7 +26,7 @@ class apmd::params {
         } else {
           $service_ensure = 'running'
           $service_enable = true
-          $service_flags = '-C'
+          $service_flags = '-A'
         }
       }
     }

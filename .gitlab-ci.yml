@@ -2,15 +2,6 @@ stages:
   - test
   - deploy
 
-rubocop-test:
-  tags:
-    - puppet
-  script:
-    - 'echo "inspecting following files with rubocop:"'
-    - "rubocop25 -L"
-    - "rubocop25 -l --only-guide-cops"
-  stage: test
-
 rake-test:
   tags:
     - puppet
