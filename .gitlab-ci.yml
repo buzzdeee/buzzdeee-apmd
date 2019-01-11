@@ -2,41 +2,24 @@ stages:
   - test
   - deploy
 
-variables:
-  RUBYSUFFIX: '25'
-
-puppet-lint:
-  tags:
-    - puppet
-  script:
-    - "puppet-lint${RUBYSUFFIX} --relative --fail-on-warnings --with-filename --with-context manifests"
-  stage: test
-
-template-test:
-  tags:
-    - puppet
-  script:
-    - "if [ -d templates ];then"
-    - "erb$RUBYSUFFIX -x -T '-' templates/*erb | ruby${RUBYSUFFIX} -c"
-    - "fi"
-  stage: test
-
 rubocop-test:
   tags:
     - puppet
   script:
     - 'echo "inspecting following files with rubocop:"'
-    - "rubocop$RUBYSUFFIX -L"
-    - "rubocop$RUBYSUFFIX -l --only-guide-cops"
+    - "rubocop25 -L"
+    - "rubocop25 -l --only-guide-cops"
   stage: test
 
 rake-test:
   tags:
     - puppet
   script:
-    - "rake$RUBYSUFFIX spec SPEC_OPTS='--format documentation'"
-    - "rake$RUBYSUFFIX metadata_lint"
-    - "rake$RUBYSUFFIX validate"
+    - "rake spec SPEC_OPTS='--format documentation'"
+    - "rake metadata_lint"
+    - "rake validate"
+    - "rake lint"
+    - "rake rubocop"
   stage: test
 
 deploy:
@@ -52,8 +35,8 @@ publish:
   tags:
     - puppet
   script:
-    - rake$RUBYSUFFIX module:clean
-    - rake$RUBYSUFFIX module:push
+    - rake module:clean
+    - rake module:push
   stage: deploy
   only:
     - tags
