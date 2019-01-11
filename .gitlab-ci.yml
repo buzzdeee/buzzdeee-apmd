@@ -35,6 +35,8 @@ rake-test:
     - puppet
   script:
     - "rake$RUBYSUFFIX spec SPEC_OPTS='--format documentation'"
+    - "rake$RUBYSUFFIX metadata_lint"
+    - "rake$RUBYSUFFIX validate"
   stage: test
 
 deploy:
