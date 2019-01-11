@@ -2,14 +2,38 @@ stages:
   - test
   - deploy
 
-rake-test:
+spec-test:
   tags:
     - puppet
   script:
     - "rake spec SPEC_OPTS='--format documentation'"
+  stage: test
+
+metadata-lint-test:
+  tags:
+    - puppet
+  script:
     - "rake metadata_lint"
+  stage: test
+
+validate-test:
+  tags:
+    - puppet
+  script:
     - "rake validate"
+  stage: test
+
+puppet-lint-test:
+  tags:
+    - puppet
+  script:
     - "rake lint"
+  stage: test
+
+rubocop-test:
+  tags:
+    - puppet
+  script:
     - "rake rubocop"
   stage: test
 
