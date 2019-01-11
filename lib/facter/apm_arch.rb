@@ -17,8 +17,6 @@ Facter.add(:apm_arch) do
   confine operatingsystem: 'OpenBSD'
   has_weight 100
   setcode do
-    if File.exist?('/dev/apm') && File.exist?('/dev/apmctl')
-      true
-    end
+    File.exist?('/dev/apm') && File.exist?('/dev/apmctl') && true
   end
 end
