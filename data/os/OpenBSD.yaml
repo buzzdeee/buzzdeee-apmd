@@ -1,0 +1,4 @@
+apmd::service_enable: true
+apmd::service_ensure: 'running'
+apmd::service_flags: '-A'
+apmd::service_name: 'bootparamd'

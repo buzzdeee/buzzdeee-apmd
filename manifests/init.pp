@@ -1,31 +1,26 @@
 # == Class: apmd
 #
-# Full description of class apmd here.
+# This class managed OpenBSD apmd.
 #
 # === Parameters
 #
 # Document parameters here.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*service_name*]
+#    String: The name of the service, default: "apmd"
 #
-# === Variables
+# [*service_ensure*]
+#    Enum[running, stopped]: The desired state of apmd, default: "running"
 #
-# Here you should define a list of variables that this module would require.
+# [*service_flags*]
+#    String: the service flags, default: '-A'
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*service_enable*]
+#    Boolean: enable the service to start at boot? default: True
 #
 # === Examples
 #
-#  class { 'apmd':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+#  class { 'apmd': }
 #
 # === Authors
 #
@@ -36,15 +31,12 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class apmd (
-  $service_enable = $apmd::params::service_enable,
-  $service_ensure = $apmd::params::service_ensure,
-  $service_flags  = $apmd::params::service_flags,
-) inherits apmd::params {
-  if $::apm_arch {
-    class { 'apmd::service':
-      service_enable => $service_enable,
-      service_ensure => $service_ensure,
-      service_flags  => $service_flags,
-    }
+  Boolean $service_enable,
+  Enum[running, stopped, 'running', 'stopped'] $service_ensure,
+  String $service_name,
+  String $service_flags,
+) {
+  if $facts['apm_arch'] {
+    contain apmd::service
   }
 }

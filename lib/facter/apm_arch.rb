@@ -9,7 +9,9 @@
 #   returns true if available, otherwise nil
 #
 # Caveats:
-#   none
+#   There are architectures that support APM, but
+#   not every platform supports it, so it may give
+#   a false positive.
 #
 # Notes:
 #   None
